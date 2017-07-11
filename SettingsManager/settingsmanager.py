@@ -32,7 +32,7 @@ import os.path
 class SettingsManager:
 
     PLUGIN_VERSION = u"2.18.2"
-    GEODATA_PATH = os.path.normpath("S:\\")
+    GEODATA_PATH = os.path.normpath("Q:\\")
     PROJECTION = u"EPSG:21781"
 
     settings = QSettings()
@@ -83,7 +83,7 @@ class SettingsManager:
 
             self.iface.messageBar().pushMessage(
                 u"Installation",
-                u"Paramètres SITNyon importés (version " + self.PLUGIN_VERSION + "), " +
+                u"Paramètres SIT importés (version " + self.PLUGIN_VERSION + "), " +
                 u"redémarrer QGIS pour terminer l'installation.",
                 level = QgsMessageBar.INFO
             )
@@ -95,13 +95,13 @@ class SettingsManager:
         # General
         settings.setValue("Qgis/showTips218", False)
         settings.setValue("Qgis/checkVersion", False)
-        settings.setValue("Qgis/newProjectDefault", True)
+        # settings.setValue("Qgis/newProjectDefault", True)
 
         # System
-        settings.setValue(
-            "svg/searchPathsForSVG",
-            os.path.join(self.GEODATA_PATH, "Impression\Symboles")
-        )
+        # settings.setValue(
+        #     "svg/searchPathsForSVG",
+        #     os.path.join(self.GEODATA_PATH, "Impression\Symboles")
+        # )
 
         # Data sources
         settings.setValue("Qgis/nullValue", "")
@@ -117,10 +117,10 @@ class SettingsManager:
         )
 
         # Composer
-        settings.setValue("Composer/defaultFont", u"Gill Sans Std Light")
+        settings.setValue("Composer/defaultFont", u"Arial Narrow")
         settings.setValue(
             "Composer/searchPathsForTemplates",
-            os.path.join(self.GEODATA_PATH, "Impression\Modeles")
+            os.path.join(self.GEODATA_PATH, "01_Maps/014_QuantumGIS/Insets")
         )
 
         # Digitizing
@@ -130,20 +130,19 @@ class SettingsManager:
         settings.setValue("Qgis/digitizing/default_snapping_tolerance", 5)
         settings.setValue("Qgis/digitizing/default_snapping_tolerance_unit", 1)
 
-        # CRS
+        # CRS 21781
+        settings.setvalue("Projections/EPSG:2056/EPSG:21781_destTransform", 100001)
+        settings.setvalue("Projections/EPSG:2056/EPSG:21781_srcTransform", -1)
+        settings.setvalue("Projections/EPSG:21781/EPSG:2056_destTransform", -1)
+        settings.setvalue("Projections/EPSG:21781/EPSG:2056_srcTransform", 100001)
+        settings.setValue("Projections/defaultBehaviour", u"useGlobal")
+        settings.setValue("Projections/layerDefaultCrs", self.PROJECTION)
         settings.setValue("Projections/otfTransformAutoEnable", False)
         settings.setValue("Projections/otfTransformEnabled", False)
         settings.setValue("Projections/projectDefaultCrs", self.PROJECTION)
-        settings.setValue("Projections/layerDefaultCrs", self.PROJECTION)
-        settings.setValue("Projections/defaultBehaviour", u"useGlobal")
+
         settings.setValue("UI/recentProjectionsAuthId", self.PROJECTION)
-        settings.setValue("UI/recentProjections", 1919) # EPSG:21781
-        settings.setValue(
-            "UI/recentProjectionsProj4",
-            u"+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 " +
-            u"+k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel " +
-            u"+towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs"
-        ) # EPSG:21781
+        settings.setValue("UI/recentProjections", [47,1919]) # EPSG: 2056,21781
 
         # Network
         settings.setValue("proxy/proxyEnabled", True)
@@ -178,19 +177,20 @@ class SettingsManager:
 
         # Last paths
         settings.setValue(
-            "UI/lastProjectDir", os.path.join(self.GEODATA_PATH, "Projets")
+            "UI/lastProjectDir",
+            os.path.join(self.GEODATA_PATH, "01_Maps/014_QuantumGIS")
         )
         settings.setValue(
             "UI/lastVectorFileFilterDir",
-            os.path.join(self.GEODATA_PATH, "Donnees")
+            os.path.join(self.GEODATA_PATH, "02_Geodata")
         )
         settings.setValue(
             "UI/lastRasterFileFilterDir",
-            os.path.join(self.GEODATA_PATH, "Donnees\Orthophotos")
+            os.path.join(self.GEODATA_PATH, "02_Geodata/02_20_PhotosAeriennes")
         )
         settings.setValue(
             "Qgis/last_embedded_project_path",
-            os.path.join(self.GEODATA_PATH, "Projets")
+            os.path.join(self.GEODATA_PATH, "01_Maps/014_QuantumGIS")
         )
 
         # File filter
@@ -204,21 +204,9 @@ class SettingsManager:
 
         # Favourites
         settings.setValue(
-            "browser/favourites",
-            [os.path.join(self.GEODATA_PATH, "Donnees")]
-        )
-
-        # Hidden paths
-        settings.setValue(
-            "browser/hiddenPaths",
-            [
-                u"S://Admin", u"S://Coordination", u"S://Documentation",
-                u"S://Impression", u"S://Outils", u"A:/", u"B:/", u"C:/",
-                u"D:/", u"E:/", u"F:/", u"G:/", u"H:/", u"I:/", u"J:/", u"K:/",
-                u"L:/", u"M:/", u"N:/", u"O:/", u"P:/", u"Q:/", u"R:/", u"T:/",
-                u"U:/", u"V:/", u"W:/", u"X:/", u"Y:/", u"Z:/"
-            ]
-        )
+            "browser/favourites",[os.path.join(
+                self.GEODATA_PATH, "01_Maps/014_QuantumGIS"
+            ),os.path.join(self.GEODATA_PATH, "02_Geodata")])
 
     def __set_wms_connections(self):
 
@@ -277,49 +265,49 @@ class SettingsManager:
 
         # SITNyon
         settings.setValue(
-            "Qgis/connections-wms/SITNyon/url",
-            u"https://map.nyon.ch/prod/wsgi/mapserv_proxy"
+            "Qgis/connections-wms/mapnv/url",
+            u"https://mapnv.ch/main/wsgi/mapserv_proxy"
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon/dpiMode", 7
+            "Qgis/connections-wms/mapnv/dpiMode", 7
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon/ignoreAxisOrientation", False
+            "Qgis/connections-wms/mapnv/ignoreAxisOrientation", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon/ignoreGetFeatureInfoURI", False
+            "Qgis/connections-wms/mapnv/ignoreGetFeatureInfoURI", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon/ignoreGetMapURI", False
+            "Qgis/connections-wms/mapnv/ignoreGetMapURI", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon/invertAxisOrientation", False
+            "Qgis/connections-wms/mapnv/invertAxisOrientation", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon/smoothPixmapTransform", True
+            "Qgis/connections-wms/mapnv/smoothPixmapTransform", True
         )
 
         settings.setValue(
-            "Qgis/connections-wms/SITNyon (WMTS)/url",
-            u"https://map.nyon.ch/prod/tiles/1.0.0/WMTSCapabilities-prod.xml"
+            "Qgis/connections-wms/mapnv (WMTS)/url",
+            u"https://mapnv.ch/main/tiles/1.0.0/WMTSCapabilities.xml"
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon (WMTS)/dpiMode", 7
+            "Qgis/connections-wms/mapnv (WMTS)/dpiMode", 7
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon (WMTS)/ignoreAxisOrientation", False
+            "Qgis/connections-wms/mapnv (WMTS)/ignoreAxisOrientation", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon (WMTS)/ignoreGetFeatureInfoURI", False
+            "Qgis/connections-wms/mapnv (WMTS)/ignoreGetFeatureInfoURI", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon (WMTS)/ignoreGetMapURI", False
+            "Qgis/connections-wms/mapnv (WMTS)/ignoreGetMapURI", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon (WMTS)/invertAxisOrientation", False
+            "Qgis/connections-wms/mapnv (WMTS)/invertAxisOrientation", False
         )
         settings.setValue(
-            "Qgis/connections-wms/SITNyon (WMTS)/smoothPixmapTransform", True
+            "Qgis/connections-wms/mapnv (WMTS)/smoothPixmapTransform", True
         )
 
         # Swisstopo
@@ -374,172 +362,23 @@ class SettingsManager:
 
         settings = self.settings
 
-        # SITNyon
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/host", u"pollux"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/port", 5432
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/database", u"sitnyon"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/sslmode", 1
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/authcfg", u"pollux1"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/saveUsername", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/savePassword", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/geometryColumnsOnly", True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/dontResolveType", True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/publicOnly", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/allowGeometrylessTables", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon/estimatedMetadata", False
-        )
+        settings.setValue("PostgreSQL/connections/selected", u"srvsit2")
 
-        # SITNyon (alcor)
+        # yverdon_main
         settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/host", u"pollux"
+            "PostgreSQL/connections/srvsit2/host", u"srvsit2"
         )
         settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/port", 5432
+            "PostgreSQL/connections/srvsit2/port", 5433
         )
         settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/database", u"sitnyon_alcor"
+            "PostgreSQL/connections/srvsit2/database", u"yvedon_main"
         )
         settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/sslmode", 1
+            "PostgreSQL/connections/srvsit2/sslmode", 0
         )
         settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/authcfg", u"pollux1"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/saveUsername", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/savePassword", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/geometryColumnsOnly", True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/dontResolveType", True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/publicOnly", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/allowGeometrylessTables",
-            False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (alcor)/estimatedMetadata", False
-        )
-
-        # SITNyon (developpement)
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/host", u"pollux"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/port", 5432
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/database",
-            u"sitnyon_developpement"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/sslmode", 1
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/authcfg", u"pollux1"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/saveUsername",
-            False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/savePassword",
-            False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/" +
-            "geometryColumnsOnly",
-            True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/dontResolveType",
-            True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/publicOnly", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/" +
-            "allowGeometrylessTables",
-            False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (developpement)/estimatedMetadata",
-            False
-        )
-
-        # SITNyon (formation)
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/host", u"pollux"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/port", 5432
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/database",
-            u"sitnyon_formation"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/sslmode", 1
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/authcfg", u"pollux2"
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/saveUsername", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/savePassword", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/geometryColumnsOnly",
-            True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/dontResolveType",
-            True
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/publicOnly", False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/" +
-            "allowGeometrylessTables",
-            False
-        )
-        settings.setValue(
-            "PostgreSQL/connections/SITNyon (formation)/estimatedMetadata",
-            False
+            "PostgreSQL/connections/srvsit2/geometryColumnsOnly", False
         )
 
     def __set_plugins(self):
@@ -591,7 +430,7 @@ class SettingsManager:
         settings.setValue("Plugins/quickfinder_plugin/geomapfish", True)
         settings.setValue(
             "Plugins/quickfinder_plugin/geomapfishUrl",
-            u"https://map.nyon.ch/search"
+            u"https://mapnv.ch/main/wsgi/fulltextsearch"
         )
         settings.setValue(
             "Plugins/quickfinder_plugin/geomapfishCrs", self.PROJECTION
