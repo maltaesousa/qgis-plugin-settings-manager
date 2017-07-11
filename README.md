@@ -1,6 +1,7 @@
 Settings Manager
 ================
 
+This is a fork from [sitnyon/qgis-plugin-settings-manager](https://github.com/sitnyon/qgis-plugin-settings-manager)
 **Settings Manager** is a QGIS plugin to set default settings, specific for **Ville d'Yverdon-les-Bains** users.
 
 Installation
