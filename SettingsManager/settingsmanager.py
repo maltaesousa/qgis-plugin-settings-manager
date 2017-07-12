@@ -263,7 +263,7 @@ class SettingsManager:
             "Qgis/connections-wms/GeoPlaNet/smoothPixmapTransform", True
         )
 
-        # SITNyon
+        # SIT
         settings.setValue(
             "Qgis/connections-wms/mapnv/url",
             u"https://mapnv.ch/main/wsgi/mapserv_proxy"

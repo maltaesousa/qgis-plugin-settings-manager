@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Voulez-vous installer les paramètres SITNyon ?</string>
+      <string>Voulez-vous installer les paramètres SIT ?</string>
      </property>
     </widget>
    </item>

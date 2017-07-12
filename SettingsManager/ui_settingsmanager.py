@@ -45,6 +45,6 @@ class Ui_SettingsManager(object):
 
     def retranslateUi(self, SettingsManager):
         SettingsManager.setWindowTitle(_translate("SettingsManager", "Settings Manager", None))
-        self.label.setText(_translate("SettingsManager", "Voulez-vous installer les paramètres SITNyon ?", None))
+        self.label.setText(_translate("SettingsManager", "Voulez-vous installer les paramètres SIT ?", None))
 
 import resources_rc

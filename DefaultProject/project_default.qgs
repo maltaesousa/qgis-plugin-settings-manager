@@ -51,7 +51,7 @@
       <Enabled type="bool">true</Enabled>
       <Placement type="int">3</Placement>
       <MarginUnit type="QString">MM</MarginUnit>
-      <Label type="QString">&amp;copy; Géodonnées : Ville de Nyon, Etat de Vaud, swisstopo, OpenStreetMap</Label>
+      <Label type="QString">&amp;copy; Géodonnées : Ville d'Yverdon-les-Bains, Etat de Vaud, swisstopo, OpenStreetMap</Label>
       <Color type="QString">#323232</Color>
     </CopyrightLabel>
     <WMSOnlineResource type="QString"></WMSOnlineResource>
