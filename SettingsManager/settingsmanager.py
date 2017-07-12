@@ -131,10 +131,10 @@ class SettingsManager:
         settings.setValue("Qgis/digitizing/default_snapping_tolerance_unit", 1)
 
         # CRS 21781
-        settings.setvalue("Projections/EPSG:2056/EPSG:21781_destTransform", 100001)
-        settings.setvalue("Projections/EPSG:2056/EPSG:21781_srcTransform", -1)
-        settings.setvalue("Projections/EPSG:21781/EPSG:2056_destTransform", -1)
-        settings.setvalue("Projections/EPSG:21781/EPSG:2056_srcTransform", 100001)
+        settings.setValue("Projections/EPSG:2056/EPSG:21781_destTransform", 100001)
+        settings.setValue("Projections/EPSG:2056/EPSG:21781_srcTransform", -1)
+        settings.setValue("Projections/EPSG:21781/EPSG:2056_destTransform", -1)
+        settings.setValue("Projections/EPSG:21781/EPSG:2056_srcTransform", 100001)
         settings.setValue("Projections/defaultBehaviour", u"useGlobal")
         settings.setValue("Projections/layerDefaultCrs", self.PROJECTION)
         settings.setValue("Projections/otfTransformAutoEnable", False)
