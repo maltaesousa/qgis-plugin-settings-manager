@@ -372,7 +372,7 @@ class SettingsManager:
             "PostgreSQL/connections/srvsit2/port", 5433
         )
         settings.setValue(
-            "PostgreSQL/connections/srvsit2/database", u"yvedon_main"
+            "PostgreSQL/connections/srvsit2/database", u"yverdon_main"
         )
         settings.setValue(
             "PostgreSQL/connections/srvsit2/sslmode", 0
