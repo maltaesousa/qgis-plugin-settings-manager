@@ -362,23 +362,23 @@ class SettingsManager:
 
         settings = self.settings
 
-        settings.setValue("PostgreSQL/connections/selected", u"srvsit2")
+        settings.setValue("PostgreSQL/connections/selected", u"yverdon_main")
 
         # yverdon_main
         settings.setValue(
-            "PostgreSQL/connections/srvsit2/host", u"srvsit2"
+            "PostgreSQL/connections/yverdon_main/host", u"srvsit2"
         )
         settings.setValue(
-            "PostgreSQL/connections/srvsit2/port", 5433
+            "PostgreSQL/connections/yverdon_main/port", 5433
         )
         settings.setValue(
-            "PostgreSQL/connections/srvsit2/database", u"yverdon_main"
+            "PostgreSQL/connections/yverdon_main/database", u"yverdon_main"
         )
         settings.setValue(
-            "PostgreSQL/connections/srvsit2/sslmode", 0
+            "PostgreSQL/connections/yverdon_main/sslmode", 0
         )
         settings.setValue(
-            "PostgreSQL/connections/srvsit2/geometryColumnsOnly", False
+            "PostgreSQL/connections/yverdon_main/geometryColumnsOnly", False
         )
 
     def __set_plugins(self):
