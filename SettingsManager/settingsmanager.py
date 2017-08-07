@@ -33,7 +33,7 @@ class SettingsManager:
 
     PLUGIN_VERSION = u"2.18.2"
     GEODATA_PATH = os.path.normpath("Q:\\")
-    PROJECTION = u"EPSG:21781"
+    PROJECTION = u"EPSG:2056"
 
     settings = QSettings()
 
